@@ -1,23 +1,88 @@
-# Shilpi_23bce12345 - Interactive To-Do List
+# Shilpi_24BCE10535 - Interactive To-Do List
 
-## Overview
-Simple To-Do application with:
-- Frontend: HTML/CSS/JS
-- Backend: Node.js + Express
-- DB: SQLite (persistent)
+# 📝 To-Do App
 
-## Run locally
-1. Backend: `cd backend && npm install && npm start`
-2. Frontend: `cd frontend && npx serve` (or open index.html with a server)
-3. Visit frontend and use the app.
+A simple and interactive To-Do List application built with **React** (frontend) and **Node.js + Express + SQLite** (backend). This app allows you to add, delete, and manage tasks with live updates.
 
-## Endpoints
-- `GET /tasks`
-- `POST /tasks` { text }
-- `DELETE /tasks/:id`
+- **Live Demo:** [Frontend on Vercel](https://to-do-app-gamma-eosin.vercel.app/)
+- **Backend API:** [Render](https://to-do-app-q91h.onrender.com/tasks)
 
-## Deployment
-Backend on Render/Heroku; frontend on Vercel/Netlify.
+---
 
-## Notes
-Personalize variable names, comments and add one small extra feature to make this project yours.
+## Features
+
+- ➕ Add new tasks
+- ✅ Mark tasks as completed
+- 🗑️ Delete individual tasks
+- 🚮 Clear all tasks at once
+- 🔢 Task counter showing completed tasks
+- 📱 Responsive design with modern styling
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, CSS
+- **Backend:** Node.js, Express, better-sqlite3 (SQLite database)
+- **Deployment:** Frontend on Vercel, Backend on Render
+
+---
+
+## Screenshots
+
+<!-- Add screenshots here, e.g.:
+![Home Screen](screenshots/home.png)
+![Completed Tasks](screenshots/completed.png)
+-->
+
+---
+
+## Installation (Local Setup)
+
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/Shilpikumari26/To-do_app.git
+    cd To-do_app
+    ```
+
+2. **Setup backend:**
+    ```bash
+    cd backend
+    npm install
+    node server.js
+    ```
+    - Backend will run on [http://localhost:4000](http://localhost:4000)
+
+3. **Setup frontend:**
+    ```bash
+    cd frontend
+    npm install
+    npm start
+    ```
+    - Frontend will run on [http://localhost:3000](http://localhost:3000)
+
+---
+
+## API Endpoints (Backend)
+
+- `GET /tasks` &mdash; Fetch all tasks
+- `POST /tasks` &mdash; Add a new task  
+  **Body:**  
+  ```json
+  { "text": "Your task" }
+  ```
+- `DELETE /tasks/:id` &mdash; Delete task by ID
+- `DELETE /tasks` &mdash; Clear all tasks
+
+---
+
+## Usage
+
+1. Open the frontend in your browser (Vercel link or [localhost:3000](http://localhost:3000))
+2. Add tasks in the input box and press Enter or click **Add**
+3. Check/uncheck tasks to mark them as completed
+4. Delete individual tasks using the **Delete** button
+5. Clear all tasks using the **Clear All Tasks** button
+
+---
+

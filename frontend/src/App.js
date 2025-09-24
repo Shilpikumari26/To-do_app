@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
+const BACKEND_URL = "https://to-do-app-q91h.onrender.com";
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
+  // Fetch all tasks from backend
   const fetchTasks = () => {
-    fetch("http://localhost:4000/tasks")
+    fetch(`${BACKEND_URL}/tasks`)
       .then(res => res.json())
       .then(data => setTasks(data.map(task => ({ ...task, completed: false }))))
       .catch(err => console.error(err));
@@ -15,29 +18,33 @@ function App() {
     fetchTasks();
   }, []);
 
+  // Add a new task
   const addTask = () => {
     if (!newTask.trim()) return;
-    fetch("http://localhost:4000/tasks", {
+    fetch(`${BACKEND_URL}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: newTask }),
     })
       .then(res => res.json())
       .then(data => {
-        setTasks([...tasks, { ...data, completed: false }]);
         setNewTask("");
-      });
-  };
-
-  const deleteTask = (id) => {
-    fetch(`http://localhost:4000/tasks/${id}`, { method: "DELETE" })
-      .then(() => setTasks(tasks.filter(task => task.id !== id)))
+        fetchTasks(); // refresh task list from backend
+      })
       .catch(err => console.error(err));
   };
 
+  // Delete task by id
+  const deleteTask = (id) => {
+    fetch(`${BACKEND_URL}/tasks/${id}`, { method: "DELETE" })
+      .then(() => fetchTasks())
+      .catch(err => console.error(err));
+  };
+
+  // Clear all tasks
   const clearAllTasks = () => {
-    fetch("http://localhost:4000/tasks", { method: "DELETE" })
-      .then(() => setTasks([]))
+    fetch(`${BACKEND_URL}/tasks`, { method: "DELETE" })
+      .then(() => fetchTasks())
       .catch(err => console.error(err));
   };
 
@@ -51,7 +58,6 @@ function App() {
     ));
   };
 
-  // Count completed tasks
   const completedCount = tasks.filter(task => task.completed).length;
 
   return (
@@ -73,13 +79,10 @@ function App() {
         boxShadow: "0 8px 25px rgba(0,0,0,0.15)"
       }}>
         <h1 style={{ color: "#333", textAlign: "center", marginBottom: "10px" }}>📝 My To-Do List</h1>
-
-        {/* Task counter */}
         <p style={{ textAlign: "center", color: "#666", marginBottom: "25px", fontSize: "16px" }}>
           Completed {completedCount} of {tasks.length} tasks
         </p>
 
-        {/* Input and Add button */}
         <div style={{ display: "flex", marginBottom: "20px" }}>
           <input
             type="text"
@@ -115,7 +118,6 @@ function App() {
           </button>
         </div>
 
-        {/* Task List */}
         <ul style={{ listStyle: "none", padding: 0 }}>
           {tasks.map(task => (
             <li
@@ -173,7 +175,6 @@ function App() {
           ))}
         </ul>
 
-        {/* Clear All */}
         {tasks.length > 0 && (
           <button
             onClick={clearAllTasks}
@@ -201,6 +202,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
